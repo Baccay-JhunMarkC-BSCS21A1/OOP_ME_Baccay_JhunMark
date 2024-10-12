@@ -1,42 +1,127 @@
-﻿namespace ConsoleApp1.Exam
+﻿using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+namespace ConsoleApp1.Exam
+
 {
+
     public class Student
+
     {
+
         public string? StudentName { get; }
+
         public List<Course> Courses { get; set; }
 
-        public Student(string? name )
+        public Student(string? name)
+
         {
+
             StudentName = name;
+
+            Courses = new List<Course>();
+
         }
 
         public void Enroll(Course course)
+
         {
-            Courses = new List<Course>();
-            Courses.Add(course);
+
+            // Prevent duplicate enrollments and disallow "OOP"
+
+            if (course.CourseName == "OOP")
+
+            {
+
+                Console.WriteLine($"{StudentName} cannot enroll in {course.CourseName}.");
+
+                return;
+
+            }
+
+            if (!Courses.Exists(c => c.CourseName == course.CourseName))
+
+            {
+
+                Courses.Add(course);
+
+            }
+
+            else
+
+            {
+
+                Console.WriteLine($"{StudentName} is already enrolled in {course.CourseName}.");
+
+            }
+
         }
 
         public void ShowCourses()
+
         {
-            Courses = new List<Course>();
+
             Console.WriteLine($"{StudentName} is enrolled in the following courses:");
+
             foreach (var course in Courses)
+
             {
+
                 Console.WriteLine($"- {course.CourseName}");
+
             }
+
         }
+
     }
 
-    // Association (Student - Course)
     public class Course
+
     {
-        public Course(string? name)
-        {
-            
-        }
+
         public string CourseName { get; }
+
+        public Course(string? name)
+
+        {
+
+            CourseName = name ?? "Mathematics"; // Default to Mathematics if name is null
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main()
+
+        {
+
+            var student = new Student("John");
+
+            student.Enroll(new Course("Mathematics"));
+
+            student.Enroll(new Course("Physics"));
+
+            Course objectOrientedProgramming = new Course("OOP");
+
+            student.Enroll(objectOrientedProgramming); // This will be ignored
+
+            // Example to show the courses
+
+            student.ShowCourses();
+
+        }
+
     }
 
 }
+
+
 
 

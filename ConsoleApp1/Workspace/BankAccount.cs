@@ -3,17 +3,20 @@
     // Encapsulation Example
     public class BankAccount
     {
-        public decimal Balance { get; }
+        public decimal Balance { get; set; }
 
         public void Deposit(decimal amount)
         {
-            //implement logic
+            Balance = amount;    
         }
 
         public string Withdraw(decimal amount)
         {
-            //implement logic
-            return "something";
+            if (Balance > amount)
+            {
+                Balance = Balance - amount;
+            }
+            return "Insufficient funds.";
         }
 
         public void Transfer(BankAccount target, decimal amount)

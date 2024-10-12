@@ -6,13 +6,13 @@
         double GetPerimeter();
     }
 
-    public class Rectangle
+    public class Rectangle:IShape
     {
         private double _length;
         private double _width;
 
-        public double Length { get; set; }
-        public double Width { get; set; }
+        public double Length { get=>_length; set=>_length=value; }
+        public double Width { get=>_width; set=>_width=value; }
 
         public double GetArea()
         {
@@ -21,11 +21,11 @@
 
         public double GetPerimeter()
         {
-            return (_length + _length);
+            return 2*(_length + _width);
         }
     }
 
-    public class Triangle
+    public class Triangle:IShape
     {
         public double SideA { get; }
         public double SideB { get; }
@@ -33,6 +33,9 @@
 
         public Triangle(double sideA, double sideB, double sideC)
         {
+            SideA = sideA;
+            SideB = sideB;
+            SideC = sideC;
         }
 
         public double GetArea()
@@ -48,7 +51,7 @@
         /// <returns></returns>
         public double GetPerimeter()
         {
-            return 0;
+            return SideA+SideB+SideC;
         }
     }
 
